@@ -17,8 +17,7 @@ class Sentence_Topic_Similarity():
     def __init__(self, w2v, topics, original_text):
         self.w2v = w2v
         self.topics = topics
-        self.original_text = original_text
-        
+        self.original_text = original_text  
         
         
         
@@ -60,6 +59,7 @@ class Sentence_Topic_Similarity():
                 tokenized_words = nltk.word_tokenize(sentence)
                 clear_tokens = remove_stopwords(tokenized_words)
                 clear_tokens = keep_useful(clear_tokens)
+                clear_tokens = remove_oov(clear_tokens, w2v)
                 tagged_sentences.append(clear_tokens)
             return tagged_sentences
         
@@ -72,8 +72,23 @@ class Sentence_Topic_Similarity():
                 topic_words = nltk.word_tokenize(topic)
                 topic_words = remove_stopwords(topic_words)
                 topic_words = keep_useful(topic_words)
+                topic_words = remove_oov(topic_words, w2v)
                 tagged_topics.append(topic_words)
             return tagged_topics
+        
+        
+        def remove_oov(word_tokens, w2v):
+            """Remove OOVs"""
+
+            for token in word_tokens:
+                try:
+                    w2v[token]
+                except KeyError:
+                    word_tokens.remove(token)
+                else:
+                    continue
+
+            return word_tokens
         
         
         
