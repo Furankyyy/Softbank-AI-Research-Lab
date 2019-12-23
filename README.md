@@ -1,2 +1,2 @@
-# Softbank-AI-Research-Lab-2019
-Code at Softbank AI Research Lab 2019
+# Softbank-AI-Research-Lab
+Projects at DEEPCORE AI Research Lab 
